@@ -1,13 +1,16 @@
 package ru.vsb.calculator.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor
 public class Request {
 
-    private int firstArg;
+    @NotBlank(message = "First Argument must not be null!")
+    private String firstArg;
 
-    private int secondArg;
+    @NotBlank(message = "Second Argument must not be null!")
+    private String secondArg;
 }

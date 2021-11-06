@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class Response {
 
-    private int result;
+    private Integer result;
 }
