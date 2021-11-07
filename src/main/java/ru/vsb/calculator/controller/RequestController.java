@@ -26,7 +26,9 @@ public class RequestController {
         this.calculatorService = calculatorService;
     }
 
-    @PostMapping(path = "/add", produces = "application/json")
+
+
+    @GetMapping(path = "/add", produces = "application/json")
     public ResponseEntity<?> add(@Valid @RequestBody Request request, BindingResult bindingResult) throws NumberFormatException {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(bindingResult));
@@ -40,7 +42,7 @@ public class RequestController {
                 HttpStatus.OK);
     }
 
-    @PostMapping(path = "/subtract", produces = "application/json")
+    @GetMapping(path = "/subtract", produces = "application/json")
     public ResponseEntity<?> subtract(@Valid @RequestBody Request request, BindingResult bindingResult) throws NumberFormatException {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(bindingResult));
@@ -54,7 +56,7 @@ public class RequestController {
                 HttpStatus.OK);
     }
 
-    @PostMapping(path = "/multiply", produces = "application/json")
+    @GetMapping(path = "/multiply", produces = "application/json")
     public ResponseEntity<?> multiply(@Valid @RequestBody Request request, BindingResult bindingResult) throws NumberFormatException {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(bindingResult));
@@ -68,7 +70,7 @@ public class RequestController {
                 HttpStatus.OK);
     }
 
-    @PostMapping(path = "/divide", produces = "application/json")
+    @GetMapping(path = "/divide", produces = "application/json")
     public ResponseEntity<?> divide(@Valid @RequestBody Request request, BindingResult bindingResult) throws NumberFormatException {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(bindingResult));

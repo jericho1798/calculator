@@ -32,7 +32,7 @@ class RequestControllerTest {
     @Test
     public void addTestWithNormalArguments() throws Exception {
        mockMvc.perform(MockMvcRequestBuilders.
-               post("/calculator/add")
+               get("/calculator/add")
                .content(objectMapper.writeValueAsString(new Request("1", "2")))
                .contentType(MediaType.APPLICATION_JSON)
                .accept(MediaType.APPLICATION_JSON))
@@ -41,8 +41,8 @@ class RequestControllerTest {
     }
     @Test
     public void addTestWithNormalArgumentsShouldBeNoLog() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.
-                        post("/calculator/add")
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/calculator/add")
                         .content(objectMapper.writeValueAsString(new Request("1", "2")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -52,7 +52,7 @@ class RequestControllerTest {
     @Test
     public void addTestWithOneNonIntArgument() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
-                        post("/calculator/add")
+                        get("/calculator/add")
                         .content(objectMapper.writeValueAsString(new Request("a", "2")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -63,7 +63,7 @@ class RequestControllerTest {
     @Test
     public void addTestWithNoArguments() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
-                        post("/calculator/add")
+                        get("/calculator/add")
                         .content(objectMapper.writeValueAsString(new Request("", "")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -74,7 +74,7 @@ class RequestControllerTest {
     @Test
     public void subtractTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
-                        post("/calculator/subtract")
+                        get("/calculator/subtract")
                         .content(objectMapper.writeValueAsString(new Request("1", "2")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -85,7 +85,7 @@ class RequestControllerTest {
     @Test
     public void multiplyTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
-                        post("/calculator/multiply")
+                        get("/calculator/multiply")
                         .content(objectMapper.writeValueAsString(new Request("2", "2")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -97,7 +97,7 @@ class RequestControllerTest {
     @Test
     public void divideTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
-                        post("/calculator/divide")
+                        get("/calculator/divide")
                         .content(objectMapper.writeValueAsString(new Request("4", "2")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
