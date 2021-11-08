@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.util.LinkedMultiValueMap;
 import ru.vsb.calculator.model.Request;
 import ru.vsb.calculator.service.CalculatorService;
 
@@ -33,19 +34,17 @@ class RequestControllerTest {
     public void addTestWithNormalArguments() throws Exception {
        mockMvc.perform(MockMvcRequestBuilders.
                get("/calculator/add")
-               .content(objectMapper.writeValueAsString(new Request("1", "2")))
-               .contentType(MediaType.APPLICATION_JSON)
-               .accept(MediaType.APPLICATION_JSON))
+               .param("firstArg", "1")
+               .param("secondArg", "2"))
                .andExpect(status().isOk())
                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(3));
     }
     @Test
     public void addTestWithNormalArgumentsShouldBeNoLog() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/calculator/add")
-                        .content(objectMapper.writeValueAsString(new Request("1", "2")))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.
+                        get("/calculator/add")
+                        .param("firstArg", "1")
+                        .param("secondArg", "2"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(3));
     }
@@ -53,9 +52,8 @@ class RequestControllerTest {
     public void addTestWithOneNonIntArgument() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
                         get("/calculator/add")
-                        .content(objectMapper.writeValueAsString(new Request("a", "2")))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .param("firstArg", "a")
+                        .param("secondArg", "2"))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string("For input string: \"a\" argument must be a number!"));
     }
@@ -64,9 +62,8 @@ class RequestControllerTest {
     public void addTestWithNoArguments() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
                         get("/calculator/add")
-                        .content(objectMapper.writeValueAsString(new Request("", "")))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .param("firstArg", "")
+                        .param("secondArg", ""))
                 .andExpect(status().isBadRequest());
     }
 
@@ -75,9 +72,8 @@ class RequestControllerTest {
     public void subtractTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
                         get("/calculator/subtract")
-                        .content(objectMapper.writeValueAsString(new Request("1", "2")))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .param("firstArg", "1")
+                        .param("secondArg", "2"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(-1));
     }
@@ -86,9 +82,8 @@ class RequestControllerTest {
     public void multiplyTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
                         get("/calculator/multiply")
-                        .content(objectMapper.writeValueAsString(new Request("2", "2")))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .param("firstArg", "2")
+                        .param("secondArg", "2"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(4));
     }
@@ -98,9 +93,8 @@ class RequestControllerTest {
     public void divideTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
                         get("/calculator/divide")
-                        .content(objectMapper.writeValueAsString(new Request("4", "2")))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .param("firstArg", "4")
+                        .param("secondArg", "2"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(2));
     }
