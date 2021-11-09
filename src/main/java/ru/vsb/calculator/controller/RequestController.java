@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.vsb.calculator.model.Request;
-import ru.vsb.calculator.model.Response;
+import org.tempuri.AddResponse;
+import org.tempuri.DivideResponse;
+import org.tempuri.MultiplyResponse;
+import org.tempuri.SubtractResponse;
 import ru.vsb.calculator.service.CalculatorService;
 
 
@@ -35,17 +37,17 @@ public class RequestController {
             @ApiResponse(responseCode = "200",
                     description = "Response received",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Response.class))}),
+                            schema = @Schema(implementation = AddResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
     })
     @GetMapping(path = "/add", produces = "application/json")
     public ResponseEntity<?> add(@RequestParam String firstArg, @RequestParam String secondArg) {
-        Request request = new Request(firstArg, secondArg);
+        AddResponse response = new AddResponse();
+        response.setAddResult(calculatorService.add(
+                Integer.parseInt(firstArg),
+                Integer.parseInt(secondArg)));
         return new ResponseEntity<>(
-                new Response(calculatorService.add(
-                        Integer.parseInt(request.getFirstArg()),
-                        Integer.parseInt(request.getSecondArg()))
-                ),
+                response.getAddResult(),
                 HttpStatus.OK);
     }
 
@@ -54,17 +56,17 @@ public class RequestController {
             @ApiResponse(responseCode = "200",
                     description = "Response received",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Response.class))}),
+                            schema = @Schema(implementation = SubtractResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
     })
     @GetMapping(path = "/subtract", produces = "application/json")
     public ResponseEntity<?> subtract(@RequestParam String firstArg, @RequestParam String secondArg) throws NumberFormatException {
-        Request request = new Request(firstArg, secondArg);
+        SubtractResponse response = new SubtractResponse();
+        response.setSubtractResult(calculatorService.subtract(
+                Integer.parseInt(firstArg),
+                Integer.parseInt(secondArg)));
         return new ResponseEntity<>(
-                new Response(calculatorService.subtract(
-                        Integer.parseInt(request.getFirstArg()),
-                        Integer.parseInt(request.getSecondArg()))
-                ),
+                response.getSubtractResult(),
                 HttpStatus.OK);
     }
 
@@ -73,17 +75,17 @@ public class RequestController {
             @ApiResponse(responseCode = "200",
                     description = "Response received",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Response.class))}),
+                            schema = @Schema(implementation = MultiplyResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
     })
     @GetMapping(path = "/multiply", produces = "application/json")
     public ResponseEntity<?> multiply(@RequestParam String firstArg, @RequestParam String secondArg) throws NumberFormatException {
-        Request request = new Request(firstArg, secondArg);
+        MultiplyResponse response = new MultiplyResponse();
+        response.setMultiplyResult(calculatorService.multiply(
+                Integer.parseInt(firstArg),
+                Integer.parseInt(secondArg)));
         return new ResponseEntity<>(
-                new Response(calculatorService.multiply(
-                        Integer.parseInt(request.getFirstArg()),
-                        Integer.parseInt(request.getSecondArg()))
-                ),
+                response.getMultiplyResult(),
                 HttpStatus.OK);
     }
 
@@ -92,19 +94,19 @@ public class RequestController {
             @ApiResponse(responseCode = "200",
                     description = "Response received",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Response.class))}),
+                            schema = @Schema(implementation = DivideResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
     })
     @GetMapping(path = "/divide", produces = "application/json")
     public ResponseEntity<?> divide(@RequestParam String firstArg, @RequestParam String secondArg) throws NumberFormatException {
-        Request request = new Request(firstArg, secondArg);
-        return request.getSecondArg().equals("0")
+        DivideResponse response = new DivideResponse();
+        response.setDivideResult(calculatorService.divide(
+                Integer.parseInt(firstArg),
+                Integer.parseInt(secondArg)));
+        return secondArg.equals("0")
                 ? ResponseEntity.badRequest().body("Error: Division by 0!")
                 : new ResponseEntity<>(
-                new Response(calculatorService.divide(
-                        Integer.parseInt(request.getFirstArg()),
-                        Integer.parseInt(request.getSecondArg()))
-                ),
+                response.getDivideResult(),
                 HttpStatus.OK);
     }
 
