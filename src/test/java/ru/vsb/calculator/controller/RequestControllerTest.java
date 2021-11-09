@@ -1,20 +1,15 @@
 package ru.vsb.calculator.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.util.LinkedMultiValueMap;
-import ru.vsb.calculator.model.Request;
 import ru.vsb.calculator.service.CalculatorService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,7 +32,7 @@ class RequestControllerTest {
                .param("firstArg", "1")
                .param("secondArg", "2"))
                .andExpect(status().isOk())
-               .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(3));
+               .andExpect(MockMvcResultMatchers.content().string("3"));
     }
     @Test
     public void addTestWithNormalArgumentsShouldBeNoLog() throws Exception {
@@ -46,7 +41,7 @@ class RequestControllerTest {
                         .param("firstArg", "1")
                         .param("secondArg", "2"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(3));
+                .andExpect(MockMvcResultMatchers.content().string("3"));
     }
     @Test
     public void addTestWithOneNonIntArgument() throws Exception {
@@ -75,7 +70,7 @@ class RequestControllerTest {
                         .param("firstArg", "1")
                         .param("secondArg", "2"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(-1));
+                .andExpect(MockMvcResultMatchers.content().string("-1"));
     }
 
     @Test
@@ -85,7 +80,7 @@ class RequestControllerTest {
                         .param("firstArg", "2")
                         .param("secondArg", "2"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(4));
+                .andExpect(MockMvcResultMatchers.content().string("4"));
     }
 
 
@@ -96,7 +91,7 @@ class RequestControllerTest {
                         .param("firstArg", "4")
                         .param("secondArg", "2"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(2));
+                .andExpect(MockMvcResultMatchers.content().string("2"));
     }
 
 }
