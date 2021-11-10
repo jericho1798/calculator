@@ -7,19 +7,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.tempuri.AddResponse;
-import org.tempuri.DivideResponse;
-import org.tempuri.MultiplyResponse;
-import org.tempuri.SubtractResponse;
+import ru.vsb.calculator.cxf.org.tempuri.AddResponse;
+import ru.vsb.calculator.cxf.org.tempuri.SubtractResponse;
+import ru.vsb.calculator.cxf.org.tempuri.MultiplyResponse;
+import ru.vsb.calculator.cxf.org.tempuri.DivideResponse;
 import ru.vsb.calculator.service.CalculatorService;
 
 
-@Slf4j
 @RestController
 @OpenAPIDefinition(info = @Info(title = "Calculator", description = "REST service-adapter to SOAP web service"))
 @RequestMapping("/calculator")
@@ -41,14 +37,12 @@ public class RequestController {
             @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
     })
     @GetMapping(path = "/add", produces = "application/json")
-    public ResponseEntity<?> add(@RequestParam String firstArg, @RequestParam String secondArg) {
+    public int add(@RequestParam String firstArg, @RequestParam String secondArg) {
         AddResponse response = new AddResponse();
         response.setAddResult(calculatorService.add(
                 Integer.parseInt(firstArg),
                 Integer.parseInt(secondArg)));
-        return new ResponseEntity<>(
-                response.getAddResult(),
-                HttpStatus.OK);
+        return response.getAddResult();
     }
 
     @Operation(summary = "Calculates the difference of 2 arguments")
@@ -60,14 +54,12 @@ public class RequestController {
             @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
     })
     @GetMapping(path = "/subtract", produces = "application/json")
-    public ResponseEntity<?> subtract(@RequestParam String firstArg, @RequestParam String secondArg) throws NumberFormatException {
+    public int subtract(@RequestParam String firstArg, @RequestParam String secondArg) {
         SubtractResponse response = new SubtractResponse();
         response.setSubtractResult(calculatorService.subtract(
                 Integer.parseInt(firstArg),
                 Integer.parseInt(secondArg)));
-        return new ResponseEntity<>(
-                response.getSubtractResult(),
-                HttpStatus.OK);
+        return response.getSubtractResult();
     }
 
     @Operation(summary = "Calculates the product of 2 arguments")
@@ -79,14 +71,12 @@ public class RequestController {
             @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
     })
     @GetMapping(path = "/multiply", produces = "application/json")
-    public ResponseEntity<?> multiply(@RequestParam String firstArg, @RequestParam String secondArg) throws NumberFormatException {
+    public int multiply(@RequestParam String firstArg, @RequestParam String secondArg) {
         MultiplyResponse response = new MultiplyResponse();
         response.setMultiplyResult(calculatorService.multiply(
                 Integer.parseInt(firstArg),
                 Integer.parseInt(secondArg)));
-        return new ResponseEntity<>(
-                response.getMultiplyResult(),
-                HttpStatus.OK);
+        return response.getMultiplyResult();
     }
 
     @Operation(summary = "Calculates the quotient of 2 arguments")
@@ -95,25 +85,15 @@ public class RequestController {
                     description = "Response received",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DivideResponse.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Invalid arguments",  content = @Content)
     })
     @GetMapping(path = "/divide", produces = "application/json")
-    public ResponseEntity<?> divide(@RequestParam String firstArg, @RequestParam String secondArg) throws NumberFormatException {
+    public int divide(@RequestParam String firstArg, @RequestParam String secondArg) {
         DivideResponse response = new DivideResponse();
         response.setDivideResult(calculatorService.divide(
                 Integer.parseInt(firstArg),
                 Integer.parseInt(secondArg)));
-        return secondArg.equals("0")
-                ? ResponseEntity.badRequest().body("Error: Division by 0!")
-                : new ResponseEntity<>(
-                response.getDivideResult(),
-                HttpStatus.OK);
-    }
-
-
-    @ExceptionHandler(NumberFormatException.class)
-    public ResponseEntity<?> handleException(NumberFormatException e) {
-        return ResponseEntity.badRequest().body(e.getMessage() + " argument must be a number!");
+        return response.getDivideResult();
     }
 
 

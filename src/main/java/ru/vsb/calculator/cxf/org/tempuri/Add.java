@@ -1,5 +1,5 @@
 
-package org.tempuri;
+package ru.vsb.calculator.cxf.org.tempuri;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlType;
     "intA",
     "intB"
 })
-@XmlRootElement(name = "Subtract")
-public class Subtract {
+@XmlRootElement(name = "Add")
+public class Add {
 
     protected int intA;
     protected int intB;

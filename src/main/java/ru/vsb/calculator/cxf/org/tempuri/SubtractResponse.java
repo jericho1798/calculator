@@ -1,5 +1,5 @@
 
-package org.tempuri;
+package ru.vsb.calculator.cxf.org.tempuri;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="DivideResult" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="SubtractResult" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,28 +29,28 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "divideResult"
+    "subtractResult"
 })
-@XmlRootElement(name = "DivideResponse")
-public class DivideResponse {
+@XmlRootElement(name = "SubtractResponse")
+public class SubtractResponse {
 
-    @XmlElement(name = "DivideResult")
-    protected int divideResult;
+    @XmlElement(name = "SubtractResult")
+    protected int subtractResult;
 
     /**
-     * Gets the value of the divideResult property.
+     * Gets the value of the subtractResult property.
      * 
      */
-    public int getDivideResult() {
-        return divideResult;
+    public int getSubtractResult() {
+        return subtractResult;
     }
 
     /**
-     * Sets the value of the divideResult property.
+     * Sets the value of the subtractResult property.
      * 
      */
-    public void setDivideResult(int value) {
-        this.divideResult = value;
+    public void setSubtractResult(int value) {
+        this.subtractResult = value;
     }
 
 }

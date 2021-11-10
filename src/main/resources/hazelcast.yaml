@@ -1,0 +1,6 @@
+hazelcast:
+  cluster-name: calculator
+  network:
+    join:
+      multicast:
+        enabled: <strong>true</strong>

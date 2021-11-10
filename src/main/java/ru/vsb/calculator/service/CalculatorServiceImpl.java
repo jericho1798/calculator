@@ -1,14 +1,15 @@
 package ru.vsb.calculator.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.tempuri.Calculator;
-import org.tempuri.CalculatorSoap;
+import ru.vsb.calculator.cxf.org.tempuri.Calculator;
+import ru.vsb.calculator.cxf.org.tempuri.CalculatorSoap;
 
 @Service
 @Slf4j
-public class CalculatorServiceImpl implements CalculatorService{
+public class CalculatorServiceImpl implements CalculatorService {
 
     private final Calculator calculator = new Calculator();
     private final CalculatorSoap port = calculator.getCalculatorSoap();
@@ -20,6 +21,7 @@ public class CalculatorServiceImpl implements CalculatorService{
         log.info("DOING SOME ADD...");
         return response;
     }
+
     @Cacheable("subtract")
     @Override
     public int subtract(int firstElement, int secondElement) {
@@ -39,8 +41,12 @@ public class CalculatorServiceImpl implements CalculatorService{
     @Cacheable("divide")
     @Override
     public int divide(int firstElement, int secondElement) {
+        if(secondElement == 0) {
+            throw new ArithmeticException();
+        }
         int response = port.divide(firstElement, secondElement);
         log.info("DOING SOME DIVIDE...");
         return response;
     }
+
 }

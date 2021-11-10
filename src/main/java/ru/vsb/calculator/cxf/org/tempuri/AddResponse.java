@@ -1,5 +1,5 @@
 
-package org.tempuri;
+package ru.vsb.calculator.cxf.org.tempuri;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="MultiplyResult" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="AddResult" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,28 +29,28 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "multiplyResult"
+    "addResult"
 })
-@XmlRootElement(name = "MultiplyResponse")
-public class MultiplyResponse {
+@XmlRootElement(name = "AddResponse")
+public class AddResponse {
 
-    @XmlElement(name = "MultiplyResult")
-    protected int multiplyResult;
+    @XmlElement(name = "AddResult")
+    protected int addResult;
 
     /**
-     * Gets the value of the multiplyResult property.
+     * Gets the value of the addResult property.
      * 
      */
-    public int getMultiplyResult() {
-        return multiplyResult;
+    public int getAddResult() {
+        return addResult;
     }
 
     /**
-     * Sets the value of the multiplyResult property.
+     * Sets the value of the addResult property.
      * 
      */
-    public void setMultiplyResult(int value) {
-        this.multiplyResult = value;
+    public void setAddResult(int value) {
+        this.addResult = value;
     }
 
 }

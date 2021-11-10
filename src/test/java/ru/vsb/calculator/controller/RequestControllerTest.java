@@ -27,15 +27,6 @@ class RequestControllerTest {
 
     @Test
     public void addTestWithNormalArguments() throws Exception {
-       mockMvc.perform(MockMvcRequestBuilders.
-               get("/calculator/add")
-               .param("firstArg", "1")
-               .param("secondArg", "2"))
-               .andExpect(status().isOk())
-               .andExpect(MockMvcResultMatchers.content().string("3"));
-    }
-    @Test
-    public void addTestWithNormalArgumentsShouldBeNoLog() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
                         get("/calculator/add")
                         .param("firstArg", "1")
@@ -43,6 +34,7 @@ class RequestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("3"));
     }
+
     @Test
     public void addTestWithOneNonIntArgument() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.
@@ -92,6 +84,16 @@ class RequestControllerTest {
                         .param("secondArg", "2"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("2"));
+    }
+
+    @Test
+    public void divideByZeroTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.
+                        get("/calculator/divide")
+                        .param("firstArg", "4")
+                        .param("secondArg", "0"))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("Divide by 0!"));
     }
 
 }
