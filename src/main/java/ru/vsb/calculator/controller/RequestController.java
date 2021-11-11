@@ -85,7 +85,7 @@ public class RequestController {
                     description = "Response received",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DivideResponse.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid arguments",  content = @Content)
+            @ApiResponse(responseCode = "400", description = "Invalid arguments", content = @Content)
     })
     @GetMapping(path = "/divide", produces = "application/json")
     public int divide(@RequestParam String firstArg, @RequestParam String secondArg) {

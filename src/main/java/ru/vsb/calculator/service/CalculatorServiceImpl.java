@@ -41,7 +41,7 @@ public class CalculatorServiceImpl implements CalculatorService {
     @Cacheable("divide")
     @Override
     public int divide(int firstElement, int secondElement) {
-        if(secondElement == 0) {
+        if (secondElement == 0) {
             throw new ArithmeticException();
         }
         int response = port.divide(firstElement, secondElement);
