@@ -4,13 +4,13 @@ services:
     container_name: first_container
     build:
       dockerfile: Dockerfile
-    image: springio/gs-spring-boot-docker
+    image: calculator-docker
     ports:
       - "8080:8080"
   second_object:
     container_name: second_container
     build:
       dockerfile: Dockerfile
-    image: springio/gs-spring-boot-docker
+    image: calculator-docker
     ports:
       - "8081:8080"
