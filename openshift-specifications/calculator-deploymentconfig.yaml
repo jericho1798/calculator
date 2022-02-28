@@ -1,0 +1,29 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: calculator
+  labels:
+    app: calculator-app
+spec:
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - calculator
+        from:
+          kind: ImageStreamTag
+          name: calculator:latest
+      type: ImageChange
+  replicas: 1
+  selector:
+    app: calculator
+  template:
+    metadata:
+      labels:
+        app: calculator
+    spec:
+      securityContext:
+        runAsUser: 1001
+      containers:
+        - name: calculator
