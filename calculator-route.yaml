@@ -1,0 +1,12 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: calculator
+  labels:
+    app: calculator-app
+spec:
+  to:
+    kind: Service
+    name: calculator
+  port:
+    targetPort: 8080
