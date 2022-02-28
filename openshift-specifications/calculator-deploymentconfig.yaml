@@ -19,3 +19,4 @@ spec:
       containers:
         - name: calculator
           image: vsb1798/calculator-docker:latest
+  docker build -t calculator-docker .
