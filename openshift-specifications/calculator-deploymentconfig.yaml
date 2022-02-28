@@ -6,15 +6,7 @@ metadata:
     app: calculator-app
 spec:
   triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - calculator
-        from:
-          kind: ImageStreamTag
-          name: calculator:latest
-      type: ImageChange
+  - type: ConfigChange
   replicas: 1
   selector:
     app: calculator
@@ -26,3 +18,4 @@ spec:
       securityContext:
       containers:
         - name: calculator
+          image: vsb1798/calculator-docker:latest
