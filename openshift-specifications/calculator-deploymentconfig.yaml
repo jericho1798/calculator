@@ -24,6 +24,5 @@ spec:
         app: calculator
     spec:
       securityContext:
-        runAsUser: 1001
       containers:
         - name: calculator
